@@ -28,18 +28,10 @@ def save_portfolio(data):
         json.dump(data, f, indent=2, ensure_ascii=False)
 
 # ── Fiyat Çekme ───────────────────────────────────────────
-def get_price(symbol, asset_type):
+def get_price(symbol, asset_type, coingecko_id=None):
     try:
         if asset_type == "crypto":
-            # CoinGecko API (ücretsiz)
-            coin_ids = {
-                "BTC": "bitcoin", "ETH": "ethereum", "BNB": "binancecoin",
-                "SOL": "solana", "ADA": "cardano", "XRP": "ripple",
-                "DOGE": "dogecoin", "AVAX": "avalanche-2", "DOT": "polkadot",
-                "MATIC": "matic-network", "LINK": "chainlink", "LTC": "litecoin",
-                "ATOM": "cosmos", "UNI": "uniswap", "TRX": "tron",
-            }
-            coin_id = coin_ids.get(symbol.upper(), symbol.lower())
+            coin_id = coingecko_id or symbol.lower()
             url = f"https://api.coingecko.com/api/v3/simple/price?ids={coin_id}&vs_currencies=usd,try"
             r = requests.get(url, timeout=10)
             data = r.json()
@@ -48,10 +40,7 @@ def get_price(symbol, asset_type):
             return None, None, None
 
         elif asset_type in ("bist", "us_stock"):
-            if asset_type == "bist":
-                ticker = symbol + ".IS"
-            else:
-                ticker = symbol
+            ticker = symbol + ".IS" if asset_type == "bist" else symbol
             stock = yf.Ticker(ticker)
             hist = stock.history(period="2d")
             if hist.empty:
@@ -59,6 +48,10 @@ def get_price(symbol, asset_type):
             price = hist["Close"].iloc[-1]
             currency = "TRY" if asset_type == "bist" else "USD"
             return price, price, currency
+
+        elif asset_type == "fund_try":
+            # Türk fonları için fiyat çekemiyoruz, None döndür
+            return None, None, "TRY"
 
     except Exception as e:
         print(f"Fiyat çekme hatası {symbol}: {e}")
@@ -72,25 +65,23 @@ def get_usd_try():
             return hist["Close"].iloc[-1]
     except:
         pass
-    return 38.0  # fallback
+    return 38.0
 
 # ── RSI Hesaplama ─────────────────────────────────────────
-def calculate_rsi(symbol, asset_type, period=14):
+def calculate_rsi(symbol, asset_type, coingecko_id=None, period=14):
     try:
         if asset_type == "crypto":
-            coin_ids = {
-                "BTC": "bitcoin", "ETH": "ethereum", "BNB": "binancecoin",
-                "SOL": "solana", "ADA": "cardano", "XRP": "ripple",
-            }
-            coin_id = coin_ids.get(symbol.upper(), symbol.lower())
+            coin_id = coingecko_id or symbol.lower()
             url = f"https://api.coingecko.com/api/v3/coins/{coin_id}/market_chart?vs_currency=try&days=30"
             r = requests.get(url, timeout=10)
             prices = [p[1] for p in r.json().get("prices", [])]
-        else:
+        elif asset_type in ("bist", "us_stock"):
             ticker = symbol + ".IS" if asset_type == "bist" else symbol
             stock = yf.Ticker(ticker)
             hist = stock.history(period="1mo")
             prices = hist["Close"].tolist()
+        else:
+            return None
 
         if len(prices) < period + 1:
             return None
@@ -117,7 +108,7 @@ def analyze_and_notify():
     assets = portfolio.get("assets", [])
 
     if not assets:
-        send_message("⚠️ Portföyünde henüz varlık yok. /ekle komutuyla ekleyebilirsin.")
+        send_message("⚠️ Portföyünde henüz varlık yok.")
         return
 
     usd_try = get_usd_try()
@@ -131,18 +122,31 @@ def analyze_and_notify():
         symbol = asset["symbol"]
         atype = asset["type"]
         quantity = asset["quantity"]
-        buy_price = asset["buy_price"]  # TRY cinsinden
+        buy_price = asset["buy_price"]
         buy_currency = asset.get("buy_currency", "TRY")
+        coingecko_id = asset.get("coingecko_id", None)
 
-        price_try, price_usd, currency = get_price(symbol, atype)
+        # Türk fonları için özel işlem
+        if atype == "fund_try":
+            cost_try = buy_price * quantity
+            total_cost_try += cost_try
+            note = asset.get("note", symbol)
+            messages.append(
+                f"🏦 <b>{symbol}</b>: {note}\n"
+                f"   {quantity} adet × {buy_price}₺ = {cost_try:,.0f}₺ (fiyat otomatik güncellenemiyor)\n"
+            )
+            total_value_try += cost_try  # Fiyat bilgisi olmadığı için maliyeti kullan
+            continue
+
+        price_try, price_usd, currency = get_price(symbol, atype, coingecko_id)
 
         if price_try is None:
-            messages.append(f"❌ {symbol}: Fiyat alınamadı")
+            messages.append(f"❌ {symbol}: Fiyat alınamadı\n")
             continue
 
         # Maliyet TRY'ye çevir
         if buy_currency == "USD":
-            cost_try = buy_price * asset.get("buy_usd_try", usd_try) * quantity
+            cost_try = buy_price * usd_try * quantity
         else:
             cost_try = buy_price * quantity
 
@@ -154,7 +158,7 @@ def analyze_and_notify():
         total_value_try += current_value_try
 
         # RSI
-        rsi = calculate_rsi(symbol, atype)
+        rsi = calculate_rsi(symbol, atype, coingecko_id)
         rsi_text = ""
         rsi_alert = ""
         if rsi:
@@ -167,7 +171,7 @@ def analyze_and_notify():
         emoji = "📈" if pnl_pct >= 0 else "📉"
         sign = "+" if pnl_pct >= 0 else ""
 
-        if currency == "USD":
+        if buy_currency == "USD":
             price_display = f"${price_usd:.2f} ({price_try:.2f}₺)"
         else:
             price_display = f"{price_try:.2f}₺"
@@ -178,7 +182,6 @@ def analyze_and_notify():
         )
         messages.append(line)
 
-        # Özel uyarılar
         if pnl_pct <= -10:
             messages.append(f"   ⚠️ Stop-loss uyarısı! -%10 eşiği geçildi.\n")
         elif pnl_pct >= 20:
@@ -188,25 +191,26 @@ def analyze_and_notify():
     total_pnl = total_value_try - total_cost_try
     total_pct = (total_pnl / total_cost_try) * 100 if total_cost_try > 0 else 0
     sign = "+" if total_pct >= 0 else ""
+    target = total_cost_try * 2
+    progress = (total_value_try / target * 100) if target > 0 else 0
 
     messages.append(
         f"\n💼 <b>Toplam Portföy</b>\n"
         f"   Maliyet: {total_cost_try:,.0f}₺\n"
         f"   Güncel: {total_value_try:,.0f}₺\n"
         f"   Kâr/Zarar: {sign}{total_pnl:,.0f}₺ ({sign}{total_pct:.1f}%)\n"
-        f"   2x Hedef: {total_cost_try*2:,.0f}₺ ({((total_value_try/(total_cost_try*2))*100):.1f}% tamamlandı)"
+        f"   🎯 2x Hedef: {target:,.0f}₺ — %{progress:.1f} tamamlandı"
     )
 
     send_message("\n".join(messages))
 
 # ── Zamanlayıcı ───────────────────────────────────────────
 def run_scheduler():
-    # Her sabah 09:00 ve akşam 19:00'da rapor gönder
     schedule.every().day.at("09:00").do(analyze_and_notify)
     schedule.every().day.at("19:00").do(analyze_and_notify)
 
     send_message("🚀 Portföy botu başlatıldı! Her gün 09:00 ve 19:00'da rapor alacaksın.")
-    analyze_and_notify()  # Başlangıçta bir kere çalıştır
+    analyze_and_notify()
 
     while True:
         schedule.run_pending()
