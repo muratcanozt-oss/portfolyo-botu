@@ -1,3 +1,4 @@
+cat > /home/claude/portfolio_bot/main.py << 'PYEOF'
 import json
 import os
 import time
@@ -7,6 +8,7 @@ from datetime import datetime
 
 TELEGRAM_TOKEN = os.environ.get("TELEGRAM_TOKEN")
 CHAT_ID = os.environ.get("CHAT_ID")
+ANTHROPIC_API_KEY = os.environ.get("ANTHROPIC_API_KEY")
 PORTFOLIO_FILE = "portfolio.json"
 
 def send_message(text):
@@ -86,6 +88,40 @@ def get_rsi(symbol, asset_type, coingecko_id=None):
     except:
         return None
 
+def get_ai_analysis(portfolio_summary):
+    try:
+        prompt = f"""Sen deneyimli bir portföy yöneticisisin. Kullanicinin portfoyu asagida.
+Hedef: TL bazinda yil sonuna kadar portfoyu 2 katina cikarmak.
+Risk profili: Orta-agresif.
+Portfoy ozeti:
+{portfolio_summary}
+
+Lutfen asagidakileri yap:
+1. Mevcut portfoyu kisaca degerlendir (hangi hisseler iyi/kotu gidiyor)
+2. 2-3 somut oneri ver: hangi varlik satilabilir, yerine ne alinabilir
+3. Guncel piyasa kosullarini dikkate al (AI/teknoloji, kripto trendleri, TL/USD)
+4. Maksimum 250 kelime, net ve anlasilir yaz. Turkce yaz."""
+
+        response = requests.post(
+            "https://api.anthropic.com/v1/messages",
+            headers={
+                "x-api-key": ANTHROPIC_API_KEY,
+                "anthropic-version": "2023-06-01",
+                "content-type": "application/json"
+            },
+            json={
+                "model": "claude-sonnet-4-6",
+                "max_tokens": 1000,
+                "messages": [{"role": "user", "content": prompt}]
+            },
+            timeout=30
+        )
+        data = response.json()
+        return data["content"][0]["text"]
+    except Exception as e:
+        print(f"AI analiz hatasi: {e}")
+        return None
+
 def analyze_and_notify():
     portfolio = load_portfolio()
     assets = portfolio.get("assets", [])
@@ -100,6 +136,7 @@ def analyze_and_notify():
 
     total_cost_try = 0
     total_value_try = 0
+    portfolio_summary_lines = []
 
     for asset in assets:
         symbol = asset["symbol"]
@@ -115,6 +152,7 @@ def analyze_and_notify():
             total_value_try += cost_try
             note = asset.get("note", symbol)
             messages.append(f"[FON] {symbol}: {note}\n  {quantity} x {buy_price:.2f}TL = {cost_try:,.0f}TL\n")
+            portfolio_summary_lines.append(f"{symbol} (Fon): {cost_try:,.0f}TL deger")
             continue
 
         price_try = None
@@ -166,6 +204,10 @@ def analyze_and_notify():
         line = f"{'[+]' if pnl_pct >= 0 else '[-]'} {symbol}: {price_str}\n  {arrow}{pnl_pct:.1f}% | {arrow}{pnl_try:,.0f}TL{rsi_text}{rsi_alert}\n"
         messages.append(line)
 
+        portfolio_summary_lines.append(
+            f"{symbol} ({atype}): {quantity} adet, maliyet {cost_try:,.0f}TL, guncel {current_value_try:,.0f}TL, {arrow}{pnl_pct:.1f}%, RSI:{rsi}"
+        )
+
         if pnl_pct <= -10:
             messages.append(f"  [UYARI] Stop-loss! -%10 esigi asildi.\n")
         elif pnl_pct >= 20:
@@ -187,6 +229,14 @@ def analyze_and_notify():
 
     send_message("\n".join(messages))
 
+    # AI analizi ayri mesaj olarak gonder
+    portfolio_summary = "\n".join(portfolio_summary_lines)
+    portfolio_summary += f"\nToplam maliyet: {total_cost_try:,.0f}TL, Guncel deger: {total_value_try:,.0f}TL, Degisim: {sign}{total_pct:.1f}%"
+
+    ai_text = get_ai_analysis(portfolio_summary)
+    if ai_text:
+        send_message(f"AI ANALIZ VE ONERILER\n\n{ai_text}")
+
 def run_scheduler():
     schedule.every().day.at("09:00").do(analyze_and_notify)
     schedule.every().day.at("19:00").do(analyze_and_notify)
@@ -200,3 +250,5 @@ def run_scheduler():
 
 if __name__ == "__main__":
     run_scheduler()
+PYEOF
+echo "OK"
