@@ -1,4 +1,3 @@
-cat > /home/claude/portfolio_bot/main.py << 'PYEOF'
 import json
 import os
 import time
@@ -201,5 +200,3 @@ def run_scheduler():
 
 if __name__ == "__main__":
     run_scheduler()
-PYEOF
-echo "OK"
