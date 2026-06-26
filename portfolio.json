@@ -1,3 +1,16 @@
 {
-  "assets": []
+  "assets": [
+    {"symbol":"HYPE","type":"crypto","quantity":9.07,"buy_price":2644.0,"buy_currency":"TRY","coingecko_id":"hyperliquid","added_at":"2026-06-26T00:00:00"},
+    {"symbol":"TAO","type":"crypto","quantity":4.29,"buy_price":11548.0,"buy_currency":"TRY","coingecko_id":"bittensor","added_at":"2026-06-26T00:00:00"},
+    {"symbol":"CPER","type":"us_stock","quantity":111,"buy_price":38.92,"buy_currency":"USD","added_at":"2026-06-26T00:00:00"},
+    {"symbol":"NVDA","type":"us_stock","quantity":4.61,"buy_price":216.51,"buy_currency":"USD","added_at":"2026-06-26T00:00:00"},
+    {"symbol":"MRVL","type":"us_stock","quantity":1.77,"buy_price":281.22,"buy_currency":"USD","added_at":"2026-06-26T00:00:00"},
+    {"symbol":"MU","type":"us_stock","quantity":0.48,"buy_price":1033.0,"buy_currency":"USD","added_at":"2026-06-26T00:00:00"},
+    {"symbol":"AMD","type":"us_stock","quantity":1.48,"buy_price":512.89,"buy_currency":"USD","added_at":"2026-06-26T00:00:00"},
+    {"symbol":"DELL","type":"us_stock","quantity":1.93,"buy_price":410.0,"buy_currency":"USD","added_at":"2026-06-26T00:00:00"},
+    {"symbol":"TTWO","type":"us_stock","quantity":4.41,"buy_price":246.75,"buy_currency":"USD","added_at":"2026-06-26T00:00:00"},
+    {"symbol":"VST","type":"us_stock","quantity":6.17,"buy_price":164.49,"buy_currency":"USD","added_at":"2026-06-26T00:00:00"},
+    {"symbol":"TP2","type":"fund_try","quantity":140,"buy_price":1.94,"buy_currency":"TRY","note":"Tera Portföy Para Piyasası Fonu","added_at":"2026-06-26T00:00:00"},
+    {"symbol":"DMG","type":"fund_try","quantity":26,"buy_price":7.62,"buy_currency":"TRY","note":"Deniz Portföy Gümüş Fon Sepeti Fonu","added_at":"2026-06-26T00:00:00"}
+  ]
 }
