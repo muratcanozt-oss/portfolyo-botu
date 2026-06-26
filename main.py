@@ -1,3 +1,4 @@
+cat > /home/claude/portfolio_bot/main.py << 'EOF'
 import json
 import os
 import time
@@ -27,8 +28,19 @@ def save_portfolio(data):
     with open(PORTFOLIO_FILE, "w") as f:
         json.dump(data, f, indent=2, ensure_ascii=False)
 
+# ── USD/TRY kuru ──────────────────────────────────────────
+def get_usd_try():
+    try:
+        ticker = yf.Ticker("USDTRY=X")
+        hist = ticker.history(period="1d")
+        if not hist.empty:
+            return float(hist["Close"].iloc[-1])
+    except:
+        pass
+    return 38.0
+
 # ── Fiyat Çekme ───────────────────────────────────────────
-def get_price(symbol, asset_type, coingecko_id=None):
+def get_price(symbol, asset_type, coingecko_id=None, usd_try=38.0):
     try:
         if asset_type == "crypto":
             coin_id = coingecko_id or symbol.lower()
@@ -36,36 +48,32 @@ def get_price(symbol, asset_type, coingecko_id=None):
             r = requests.get(url, timeout=10)
             data = r.json()
             if coin_id in data:
-                return data[coin_id]["try"], data[coin_id]["usd"], "TRY"
-            return None, None, None
+                return data[coin_id]["try"], data[coin_id]["usd"]
+            return None, None
 
-        elif asset_type in ("bist", "us_stock"):
-            ticker = symbol + ".IS" if asset_type == "bist" else symbol
+        elif asset_type == "bist":
+            ticker = symbol + ".IS"
             stock = yf.Ticker(ticker)
             hist = stock.history(period="2d")
             if hist.empty:
-                return None, None, None
-            price = hist["Close"].iloc[-1]
-            currency = "TRY" if asset_type == "bist" else "USD"
-            return price, price, currency
+                return None, None
+            price_try = float(hist["Close"].iloc[-1])
+            return price_try, price_try / usd_try
+
+        elif asset_type == "us_stock":
+            stock = yf.Ticker(symbol)
+            hist = stock.history(period="2d")
+            if hist.empty:
+                return None, None
+            price_usd = float(hist["Close"].iloc[-1])
+            return price_usd * usd_try, price_usd
 
         elif asset_type == "fund_try":
-            # Türk fonları için fiyat çekemiyoruz, None döndür
-            return None, None, "TRY"
+            return None, None
 
     except Exception as e:
         print(f"Fiyat çekme hatası {symbol}: {e}")
-        return None, None, None
-
-def get_usd_try():
-    try:
-        ticker = yf.Ticker("USDTRY=X")
-        hist = ticker.history(period="1d")
-        if not hist.empty:
-            return hist["Close"].iloc[-1]
-    except:
-        pass
-    return 38.0
+        return None, None
 
 # ── RSI Hesaplama ─────────────────────────────────────────
 def calculate_rsi(symbol, asset_type, coingecko_id=None, period=14):
@@ -126,19 +134,19 @@ def analyze_and_notify():
         buy_currency = asset.get("buy_currency", "TRY")
         coingecko_id = asset.get("coingecko_id", None)
 
-        # Türk fonları için özel işlem
+        # Türk fonları
         if atype == "fund_try":
             cost_try = buy_price * quantity
             total_cost_try += cost_try
+            total_value_try += cost_try
             note = asset.get("note", symbol)
             messages.append(
                 f"🏦 <b>{symbol}</b>: {note}\n"
-                f"   {quantity} adet × {buy_price}₺ = {cost_try:,.0f}₺ (fiyat otomatik güncellenemiyor)\n"
+                f"   {quantity} adet × {buy_price:.2f}₺ = {cost_try:,.0f}₺\n"
             )
-            total_value_try += cost_try  # Fiyat bilgisi olmadığı için maliyeti kullan
             continue
 
-        price_try, price_usd, currency = get_price(symbol, atype, coingecko_id)
+        price_try, price_usd = get_price(symbol, atype, coingecko_id, usd_try)
 
         if price_try is None:
             messages.append(f"❌ {symbol}: Fiyat alınamadı\n")
@@ -171,7 +179,7 @@ def analyze_and_notify():
         emoji = "📈" if pnl_pct >= 0 else "📉"
         sign = "+" if pnl_pct >= 0 else ""
 
-        if buy_currency == "USD":
+        if atype == "us_stock" and price_usd:
             price_display = f"${price_usd:.2f} ({price_try:.2f}₺)"
         else:
             price_display = f"{price_try:.2f}₺"
@@ -218,3 +226,5 @@ def run_scheduler():
 
 if __name__ == "__main__":
     run_scheduler()
+EOF
+echo "Hazır"
