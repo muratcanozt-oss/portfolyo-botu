@@ -1,7 +1,8 @@
+cat > /home/claude/portfolio_bot/portfolio.json << 'EOF'
 {
   "assets": [
-    {"symbol":"HYPE","type":"crypto","quantity":9.07,"buy_price":2644.0,"buy_currency":"TRY","coingecko_id":"hyperliquid","added_at":"2026-06-26T00:00:00"},
-    {"symbol":"TAO","type":"crypto","quantity":4.29,"buy_price":11548.0,"buy_currency":"TRY","coingecko_id":"bittensor","added_at":"2026-06-26T00:00:00"},
+    {"symbol":"HYPE","type":"crypto","quantity":16.19,"buy_price":2783.0,"buy_currency":"TRY","coingecko_id":"hyperliquid","added_at":"2026-06-26T00:00:00"},
+    {"symbol":"TAO","type":"crypto","quantity":2.1417,"buy_price":11548.0,"buy_currency":"TRY","coingecko_id":"bittensor","added_at":"2026-06-26T00:00:00"},
     {"symbol":"CPER","type":"us_stock","quantity":111,"buy_price":38.92,"buy_currency":"USD","added_at":"2026-06-26T00:00:00"},
     {"symbol":"NVDA","type":"us_stock","quantity":4.61,"buy_price":216.51,"buy_currency":"USD","added_at":"2026-06-26T00:00:00"},
     {"symbol":"MRVL","type":"us_stock","quantity":1.77,"buy_price":281.22,"buy_currency":"USD","added_at":"2026-06-26T00:00:00"},
@@ -14,3 +15,5 @@
     {"symbol":"DMG","type":"fund_try","quantity":26,"buy_price":7.62,"buy_currency":"TRY","note":"Deniz Portföy Gümüş Fon Sepeti Fonu","added_at":"2026-06-26T00:00:00"}
   ]
 }
+EOF
+echo "OK"
