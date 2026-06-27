@@ -92,6 +92,11 @@ def get_ai_analysis(portfolio_summary):
         prompt = f"""Sen deneyimli bir portföy yöneticisisin. Kullanicinin portfoyu asagida.
 Hedef: TL bazinda yil sonuna kadar portfoyu 2 katina cikarmak.
 Risk profili: Orta-agresif.
+Onemli kurallar:
+- Kripto portfoy agirligini artirma, yeni kripto onerme.
+- Kripto icinde takas onerilebilir (ornek: TAO sat, HYPE al).
+- Hisse icinde takas onerilebilir (ornek: TTWO sat, baska hisse al).
+- Hisse satip kripto alma onerme.
 Portfoy ozeti:
 {portfolio_summary}
 
@@ -147,11 +152,17 @@ def analyze_and_notify():
 
         if atype == "fund_try":
             cost_try = buy_price * quantity
+            current_price = asset.get("current_price", buy_price)
+            current_value_try = current_price * quantity
+            pnl_try = current_value_try - cost_try
+            pnl_pct = (pnl_try / cost_try) * 100 if cost_try > 0 else 0
             total_cost_try += cost_try
-            total_value_try += cost_try
+            total_value_try += current_value_try
             note = asset.get("note", symbol)
-            messages.append(f"[FON] {symbol}: {note}\n  {quantity} x {buy_price:.2f}TL = {cost_try:,.0f}TL\n")
-            portfolio_summary_lines.append(f"{symbol} (Fon): {cost_try:,.0f}TL deger")
+            sign = "+" if pnl_pct >= 0 else ""
+            arrow = "[+]" if pnl_pct >= 0 else "[-]"
+            messages.append(f"{arrow} {symbol}: {current_price:.4f}TL\n  {sign}{pnl_pct:.1f}% | {sign}{pnl_try:,.0f}TL | {note}\n")
+            portfolio_summary_lines.append(f"{symbol} (Fon): maliyet {cost_try:,.0f}TL, guncel {current_value_try:,.0f}TL, {sign}{pnl_pct:.1f}%")
             continue
 
         price_try = None
