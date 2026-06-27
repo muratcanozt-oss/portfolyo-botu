@@ -1,4 +1,3 @@
-cat > /home/claude/portfolio_bot/portfolio.json << 'EOF'
 {
   "assets": [
     {"symbol":"HYPE","type":"crypto","quantity":16.19,"buy_price":2783.0,"buy_currency":"TRY","coingecko_id":"hyperliquid","added_at":"2026-06-26T00:00:00"},
@@ -11,9 +10,7 @@ cat > /home/claude/portfolio_bot/portfolio.json << 'EOF'
     {"symbol":"DELL","type":"us_stock","quantity":1.93,"buy_price":410.0,"buy_currency":"USD","added_at":"2026-06-26T00:00:00"},
     {"symbol":"TTWO","type":"us_stock","quantity":4.41,"buy_price":246.75,"buy_currency":"USD","added_at":"2026-06-26T00:00:00"},
     {"symbol":"VST","type":"us_stock","quantity":6.17,"buy_price":164.49,"buy_currency":"USD","added_at":"2026-06-26T00:00:00"},
-    {"symbol":"TP2","type":"fund_try","quantity":140,"buy_price":1.94,"buy_currency":"TRY","note":"Tera Portföy Para Piyasası Fonu","added_at":"2026-06-26T00:00:00"},
-    {"symbol":"DMG","type":"fund_try","quantity":26,"buy_price":7.62,"buy_currency":"TRY","note":"Deniz Portföy Gümüş Fon Sepeti Fonu","added_at":"2026-06-26T00:00:00"}
+    {"symbol":"TP2","type":"fund_try","quantity":140,"buy_price":1.94,"buy_currency":"TRY","note":"Tera Portfoy Para Piyasasi Fonu","added_at":"2026-06-26T00:00:00"},
+    {"symbol":"DMG","type":"fund_try","quantity":26,"buy_price":7.62,"buy_currency":"TRY","note":"Deniz Portfoy Gumus Fon Sepeti Fonu","added_at":"2026-06-26T00:00:00"}
   ]
 }
-EOF
-echo "OK"
