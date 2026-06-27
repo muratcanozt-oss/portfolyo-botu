@@ -92,11 +92,6 @@ def get_ai_analysis(portfolio_summary):
         prompt = f"""Sen deneyimli bir portföy yöneticisisin. Kullanicinin portfoyu asagida.
 Hedef: TL bazinda yil sonuna kadar portfoyu 2 katina cikarmak.
 Risk profili: Orta-agresif.
-Önemli kurallar:
-- Kripto portföy ağırlığını artırma. Yeni kripto önerme.
-- Kripto içinde takas önerilebilir (örn. TAO sat, HYPE al).
-- Hisse içinde takas önerilebilir (örn. TTWO sat, başka hisse al).
-- Hisse satıp kripto alma önerme.
 Portfoy ozeti:
 {portfolio_summary}
 
