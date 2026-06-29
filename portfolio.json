@@ -1,7 +1,6 @@
 {
   "assets": [
-    {"symbol":"HYPE","type":"crypto","quantity":16.19,"buy_price":2783.0,"buy_currency":"TRY","coingecko_id":"hyperliquid","added_at":"2026-06-26T00:00:00"},
-    {"symbol":"TAO","type":"crypto","quantity":2.1417,"buy_price":11548.0,"buy_currency":"TRY","coingecko_id":"bittensor","added_at":"2026-06-26T00:00:00"},
+    {"symbol":"HYPE","type":"crypto","quantity":23.31,"buy_price":2840.54,"buy_currency":"TRY","coingecko_id":"hyperliquid","added_at":"2026-06-26T00:00:00"},
     {"symbol":"CPER","type":"us_stock","quantity":111,"buy_price":38.92,"buy_currency":"USD","added_at":"2026-06-26T00:00:00"},
     {"symbol":"NVDA","type":"us_stock","quantity":4.61,"buy_price":216.51,"buy_currency":"USD","added_at":"2026-06-26T00:00:00"},
     {"symbol":"MRVL","type":"us_stock","quantity":1.77,"buy_price":281.22,"buy_currency":"USD","added_at":"2026-06-26T00:00:00"},
@@ -9,6 +8,8 @@
     {"symbol":"AMD","type":"us_stock","quantity":2.422196674,"buy_price":519.59,"buy_currency":"USD","added_at":"2026-06-26T00:00:00"},
     {"symbol":"DELL","type":"us_stock","quantity":1.93,"buy_price":410.0,"buy_currency":"USD","added_at":"2026-06-26T00:00:00"},
     {"symbol":"VST","type":"us_stock","quantity":6.17,"buy_price":164.49,"buy_currency":"USD","added_at":"2026-06-26T00:00:00"},
+    {"symbol":"AVGO","type":"us_stock","quantity":2.691065,"buy_price":373.69,"buy_currency":"USD","added_at":"2026-06-29T00:00:00"},
+    {"symbol":"PLTR","type":"us_stock","quantity":5.366912,"buy_price":115.15,"buy_currency":"USD","added_at":"2026-06-29T00:00:00"},
     {"symbol":"TP2","type":"fund_try","quantity":140289,"buy_price":1.9442,"buy_currency":"TRY","current_price":2.0196,"note":"Tera Portfoy Para Piyasasi Fonu - Faize Dayali","added_at":"2026-06-26T00:00:00"},
     {"symbol":"DMG","type":"fund_try","quantity":26217,"buy_price":7.6283,"buy_currency":"TRY","current_price":5.9240,"note":"Deniz Portfoy Gumus Fon Sepeti - Gumuse Dayali","added_at":"2026-06-26T00:00:00"}
   ]
