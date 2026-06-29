@@ -11,7 +11,7 @@
     {"symbol":"MSTR","type":"us_stock","quantity":11.924636,"buy_price":83.86,"buy_currency":"USD","added_at":"2026-06-29T00:00:00"},
     {"symbol":"HIMS","type":"us_stock","quantity":28.4252,"buy_price":35.18,"buy_currency":"USD","added_at":"2026-06-29T00:00:00"},
     {"symbol":"CELH","type":"us_stock","quantity":33.650917,"buy_price":29.72,"buy_currency":"USD","added_at":"2026-06-29T00:00:00"},
-    {"symbol":"MPWR","type":"us_stock","quantity":0.5693,"buy_price":760.56,"buy_currency":"USD","added_at":"2026-06-29T00:00:00"},
+    {"symbol":"MPWR","type":"us_stock","quantity":0.569359,"buy_price":1333.11,"buy_currency":"USD","added_at":"2026-06-29T00:00:00"},
     {"symbol":"TP2","type":"fund_try","quantity":140289,"buy_price":1.9442,"buy_currency":"TRY","current_price":2.0196,"note":"Tera Portfoy Para Piyasasi Fonu - Faize Dayali","added_at":"2026-06-26T00:00:00"},
     {"symbol":"DMG","type":"fund_try","quantity":26217,"buy_price":7.6283,"buy_currency":"TRY","current_price":5.9240,"note":"Deniz Portfoy Gumus Fon Sepeti - Gumuse Dayali","added_at":"2026-06-26T00:00:00"}
   ]
