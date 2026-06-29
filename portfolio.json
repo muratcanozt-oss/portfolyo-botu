@@ -5,10 +5,9 @@
     {"symbol":"CPER","type":"us_stock","quantity":111,"buy_price":38.92,"buy_currency":"USD","added_at":"2026-06-26T00:00:00"},
     {"symbol":"NVDA","type":"us_stock","quantity":4.61,"buy_price":216.51,"buy_currency":"USD","added_at":"2026-06-26T00:00:00"},
     {"symbol":"MRVL","type":"us_stock","quantity":1.77,"buy_price":281.22,"buy_currency":"USD","added_at":"2026-06-26T00:00:00"},
-    {"symbol":"MU","type":"us_stock","quantity":0.48,"buy_price":1033.0,"buy_currency":"USD","added_at":"2026-06-26T00:00:00"},
-    {"symbol":"AMD","type":"us_stock","quantity":1.48,"buy_price":512.89,"buy_currency":"USD","added_at":"2026-06-26T00:00:00"},
+    {"symbol":"MU","type":"us_stock","quantity":0.968960809,"buy_price":1090.63,"buy_currency":"USD","added_at":"2026-06-26T00:00:00"},
+    {"symbol":"AMD","type":"us_stock","quantity":2.422196674,"buy_price":519.59,"buy_currency":"USD","added_at":"2026-06-26T00:00:00"},
     {"symbol":"DELL","type":"us_stock","quantity":1.93,"buy_price":410.0,"buy_currency":"USD","added_at":"2026-06-26T00:00:00"},
-    {"symbol":"TTWO","type":"us_stock","quantity":4.41,"buy_price":246.75,"buy_currency":"USD","added_at":"2026-06-26T00:00:00"},
     {"symbol":"VST","type":"us_stock","quantity":6.17,"buy_price":164.49,"buy_currency":"USD","added_at":"2026-06-26T00:00:00"},
     {"symbol":"TP2","type":"fund_try","quantity":140289,"buy_price":1.9442,"buy_currency":"TRY","current_price":2.0196,"note":"Tera Portfoy Para Piyasasi Fonu - Faize Dayali","added_at":"2026-06-26T00:00:00"},
     {"symbol":"DMG","type":"fund_try","quantity":26217,"buy_price":7.6283,"buy_currency":"TRY","current_price":5.9240,"note":"Deniz Portfoy Gumus Fon Sepeti - Gumuse Dayali","added_at":"2026-06-26T00:00:00"}
