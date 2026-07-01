@@ -1,15 +1,14 @@
 {
   "assets": [
     {"symbol":"HYPE","type":"crypto","quantity":23.31,"buy_price":2840.54,"buy_currency":"TRY","coingecko_id":"hyperliquid","added_at":"2026-06-26T00:00:00"},
-    {"symbol":"MRVL","type":"us_stock","quantity":5.473839,"buy_price":285.37,"buy_currency":"USD","added_at":"2026-06-26T00:00:00"},
+    {"symbol":"MRVL","type":"us_stock","quantity":7.235024,"buy_price":285.24,"buy_currency":"USD","added_at":"2026-06-26T00:00:00"},
     {"symbol":"MU","type":"us_stock","quantity":1.8665,"buy_price":1101.91,"buy_currency":"USD","added_at":"2026-06-26T00:00:00"},
-    {"symbol":"AMD","type":"us_stock","quantity":2.422196674,"buy_price":519.59,"buy_currency":"USD","added_at":"2026-06-26T00:00:00"},
+    {"symbol":"AMD","type":"us_stock","quantity":3.492364,"buy_price":532.18,"buy_currency":"USD","added_at":"2026-06-26T00:00:00"},
     {"symbol":"VST","type":"us_stock","quantity":12.220676,"buy_price":164.89,"buy_currency":"USD","added_at":"2026-06-26T00:00:00"},
     {"symbol":"AVGO","type":"us_stock","quantity":4.01966,"buy_price":378.74,"buy_currency":"USD","added_at":"2026-06-29T00:00:00"},
-    {"symbol":"PLTR","type":"us_stock","quantity":15.285510,"buy_price":116.64,"buy_currency":"USD","added_at":"2026-06-29T00:00:00"},
+    {"symbol":"PLTR","type":"us_stock","quantity":30.572771,"buy_price":118.37,"buy_currency":"USD","added_at":"2026-06-29T00:00:00"},
     {"symbol":"CELH","type":"us_stock","quantity":66.727683,"buy_price":29.52,"buy_currency":"USD","added_at":"2026-06-29T00:00:00"},
-    {"symbol":"ANET","type":"us_stock","quantity":49.5040,"buy_price":170.11,"buy_currency":"USD","added_at":"2026-06-30T00:00:00"},
-    {"symbol":"TP2","type":"fund_try","quantity":140289,"buy_price":1.9442,"buy_currency":"TRY","current_price":2.0196,"note":"Tera Portfoy Para Piyasasi Fonu - Faize Dayali","added_at":"2026-06-26T00:00:00"},
-    {"symbol":"DMG","type":"fund_try","quantity":26217,"buy_price":7.6283,"buy_currency":"TRY","current_price":5.9240,"note":"Deniz Portfoy Gumus Fon Sepeti - Gumuse Dayali","added_at":"2026-06-26T00:00:00"}
+    {"symbol":"ANET","type":"us_stock","quantity":6.365830,"buy_price":168.20,"buy_currency":"USD","added_at":"2026-06-30T00:00:00"},
+    {"symbol":"TP2","type":"fund_try","quantity":140289,"buy_price":1.9442,"buy_currency":"TRY","current_price":2.0196,"note":"Tera Portfoy Para Piyasasi Fonu - Faize Dayali","added_at":"2026-06-26T00:00:00"}
   ]
 }
