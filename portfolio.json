@@ -1,14 +1,13 @@
 {
   "assets": [
-    {"symbol":"HYPE","type":"crypto","quantity":23.31,"buy_price":2840.54,"buy_currency":"TRY","coingecko_id":"hyperliquid","added_at":"2026-06-26T00:00:00"},
+    {"symbol":"SOL","type":"crypto","quantity":18.930943,"buy_price":3763.70,"buy_currency":"TRY","coingecko_id":"solana","added_at":"2026-07-02T00:00:00"},
     {"symbol":"MRVL","type":"us_stock","quantity":7.235024,"buy_price":285.24,"buy_currency":"USD","added_at":"2026-06-26T00:00:00"},
-    {"symbol":"MU","type":"us_stock","quantity":1.8665,"buy_price":1101.91,"buy_currency":"USD","added_at":"2026-06-26T00:00:00"},
     {"symbol":"AMD","type":"us_stock","quantity":3.492364,"buy_price":532.18,"buy_currency":"USD","added_at":"2026-06-26T00:00:00"},
     {"symbol":"VST","type":"us_stock","quantity":12.220676,"buy_price":164.89,"buy_currency":"USD","added_at":"2026-06-26T00:00:00"},
     {"symbol":"AVGO","type":"us_stock","quantity":4.01966,"buy_price":378.74,"buy_currency":"USD","added_at":"2026-06-29T00:00:00"},
     {"symbol":"PLTR","type":"us_stock","quantity":30.572771,"buy_price":118.37,"buy_currency":"USD","added_at":"2026-06-29T00:00:00"},
     {"symbol":"CELH","type":"us_stock","quantity":66.727683,"buy_price":29.52,"buy_currency":"USD","added_at":"2026-06-29T00:00:00"},
-    {"symbol":"ANET","type":"us_stock","quantity":6.365830,"buy_price":168.20,"buy_currency":"USD","added_at":"2026-06-30T00:00:00"},
+    {"symbol":"ANET","type":"us_stock","quantity":17.6793,"buy_price":162.97,"buy_currency":"USD","added_at":"2026-06-30T00:00:00"},
     {"symbol":"TP2","type":"fund_try","quantity":140289,"buy_price":1.9442,"buy_currency":"TRY","current_price":2.0196,"note":"Tera Portfoy Para Piyasasi Fonu - Faize Dayali","added_at":"2026-06-26T00:00:00"}
   ]
 }
