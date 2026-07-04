@@ -1,6 +1,6 @@
 {
   "assets": [
-    {"symbol":"SOL","type":"crypto","quantity":18.930943,"buy_price":3763.70,"buy_currency":"TRY","coingecko_id":"solana","added_at":"2026-07-02T00:00:00"},
+    {"symbol":"HYPE","type":"crypto","quantity":21.87,"buy_price":3298.00,"buy_currency":"TRY","coingecko_id":"hyperliquid","added_at":"2026-07-02T00:00:00"},
     {"symbol":"MRVL","type":"us_stock","quantity":7.235024,"buy_price":285.24,"buy_currency":"USD","added_at":"2026-06-26T00:00:00"},
     {"symbol":"AMD","type":"us_stock","quantity":3.492364,"buy_price":532.18,"buy_currency":"USD","added_at":"2026-06-26T00:00:00"},
     {"symbol":"VST","type":"us_stock","quantity":12.220676,"buy_price":164.89,"buy_currency":"USD","added_at":"2026-06-26T00:00:00"},
