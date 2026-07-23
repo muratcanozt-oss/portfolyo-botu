@@ -4,6 +4,7 @@
     {"symbol":"NVDA","type":"us_stock","quantity":7.8549,"buy_price":209.46,"buy_currency":"USD","added_at":"2026-07-06T00:00:00"},
     {"symbol":"AVGO","type":"us_stock","quantity":4.019665,"buy_price":373.17,"buy_currency":"USD","added_at":"2026-06-29T00:00:00"},
     {"symbol":"PLTR","type":"us_stock","quantity":7.9885,"buy_price":123.04,"buy_currency":"USD","added_at":"2026-06-29T00:00:00"},
-    {"symbol":"META","type":"us_stock","quantity":1.2144,"buy_price":658.74,"buy_currency":"USD","added_at":"2026-07-07T00:00:00"}
+    {"symbol":"META","type":"us_stock","quantity":1.2144,"buy_price":658.74,"buy_currency":"USD","added_at":"2026-07-07T00:00:00"},
+    {"symbol":"ANET","type":"us_stock","quantity":1.4036,"buy_price":175.97,"buy_currency":"USD","added_at":"2026-07-23T00:00:00"}
   ]
 }
